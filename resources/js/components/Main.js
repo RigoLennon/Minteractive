@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import ReactDom from 'react-dom';
+import ReactDOM from 'react-dom';
 
-class Main extends Component{
+import Product from './Product';
+
+class Main extends Component {
+
     constructor(){
         super();
 
@@ -12,46 +15,50 @@ class Main extends Component{
     }
 
     componentDidMount(){
-
-    }
-
-    componentWillMount(){
         fetch('/api/products')
-        .then(response=>{
+        .then(response => {
             return response.json();
         })
-        .then(products=>{
+        .then(products => {
             this.setState({ products });
         });
     }
 
     renderProducts(){
-        return this.state.products.map(product=>{
+        return this.state.products.map(product => {
             return(
-                <li onClick={
-                    () => this.handleClick(product)} key={product.id}>
-                    { product.name }
-                </li>
+                <div key={product.id}>
+                    <h3>{product.name}</h3>
+                    <p>{product.description}</p>
+                    <button onClick={() => this.handleClick(product)}>Ver mas...</button>
+                </div>
+                
             );
-            
-        });
+        })
     }
 
     handleClick(product){
-        this.setState({ currentProduct:product });
+        this.setState({currentProduct:product});
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <div>
-                    <h3>All products</h3>
+                    <h3>Todos los productos</h3>
                     <ul>
                         { this.renderProducts() }
                     </ul>
                 </div>
+
                 <Product product={this.state.currentProduct} />
             </div>
         );
     }
+}
+
+export default Main;
+
+if (document.getElementById('root')) {
+    ReactDOM.render(<Main />, document.getElementById('root'));
 }
