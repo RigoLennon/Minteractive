@@ -19,8 +19,13 @@ class ProductsController extends Controller
         $this->validate($request,[
             'name' => 'required|unique:products|max:255',
             'description'=> 'required',
-            'price' => 'integer',
+            'price' => 'required|integer',
+            'file' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
+
+        $imageName = time().'.'.request()->image->getClientOriginalExtension();
+
+        request()->image->move(public_path('images'), $imageName);
 
         $product = Product::create($request->all());
 

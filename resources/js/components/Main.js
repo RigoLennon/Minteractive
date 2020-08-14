@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import {Button} from '@material-ui/core';
+import {Button, Grid, CardHeader, CardMedia, CardContent, Typography, Card, CardActions} from '@material-ui/core';
 
 import Product from './Product';
+import AppBarD from './AppBar';
+
+import test from '../../../public/images/test.png';
 
 class Main extends Component {
 
@@ -12,7 +15,7 @@ class Main extends Component {
 
         this.state = {
             products: [],
-            currentProduct: null
+            currentProduct: null,
         }
     }
 
@@ -29,12 +32,31 @@ class Main extends Component {
     renderProducts(){
         return this.state.products.map(product => {
             return(
-                <div key={product.id}>
-                    <h3>{product.name}</h3>
-                    <p>{product.description}</p>
-                    <Button variant="contained" onClick={() => this.handleClick(product)}>Ver mas</Button>
-                </div>
-                
+                <Card key={product.id}>
+                    <CardHeader
+                    title={product.name}
+                    subheader="Subtitulo de prueba"
+                    />
+                    <CardMedia
+                    image={test}
+                    title='test'
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="textSecondary">
+                            {product.description}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button 
+                        size="small" 
+                        color="primary"
+                        variant="contained"
+                        onClick={() => this.handleClick(product)}
+                        >
+                            Ver mas
+                        </Button>
+                    </CardActions>
+                </Card>                
             );
         })
     }
@@ -46,14 +68,20 @@ class Main extends Component {
     render() {
         return (
             <div>
-                <div>
+                <AppBarD />
+                <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+                >
                     <h3>Todos los productos</h3>
-                    <ul>
-                        { this.renderProducts() }
-                    </ul>
+                </Grid>
+                <div>
+                    { this.renderProducts() }
                 </div>
-
-                <Product product={this.state.currentProduct} />
+                {/*<FullScreenDialog product={this.state.currentProduct}/>*/}
+                <Product product={this.state.currentProduct}/>
             </div>
         );
     }

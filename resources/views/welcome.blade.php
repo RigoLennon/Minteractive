@@ -10,7 +10,6 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     </head>
     <body>
-    <h2 style="text-align: center"> Laravel and React application </h2>
         <div id="root"></div>
         <script src="{{mix('js/app.js')}}" ></script>
     </body>
