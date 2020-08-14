@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import {Button} from '@material-ui/core';
+
 import Product from './Product';
 
 class Main extends Component {
@@ -30,7 +32,7 @@ class Main extends Component {
                 <div key={product.id}>
                     <h3>{product.name}</h3>
                     <p>{product.description}</p>
-                    <button onClick={() => this.handleClick(product)}>Ver mas...</button>
+                    <Button variant="contained" onClick={() => this.handleClick(product)}>Ver mas</Button>
                 </div>
                 
             );
