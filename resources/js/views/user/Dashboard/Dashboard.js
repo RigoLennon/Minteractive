@@ -31,15 +31,15 @@ class Home extends Component{
                     <tbody>
                         <tr>
                             <th scope="row">User Id</th>
-                            <td>{this.user.id}</td>
+                            <td>{this.state.user.id}</td>
                         </tr>
                         <tr>
                             <th scope="row">Full name</th>
-                            <td>{this.user.name}</td>
+                            <td>{this.state.user.name}</td>
                         </tr>
                         <tr>
                             <th scope="row">Email</th>
-                            <td>{this.user.email}</td>
+                            <td>{this.state.user.email}</td>
                         </tr>
                     </tbody>
                 </table>
