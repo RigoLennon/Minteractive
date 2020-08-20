@@ -59,7 +59,7 @@ class AuthController extends Controller{
         return response()->json([
             'success' => true,
             'id' => $user->id,
-            'name' => $user->first_name,
+            'name' => $user->name,
             'email' => $user->email,
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
