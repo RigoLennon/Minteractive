@@ -24,11 +24,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Test() {
+export default function MenuAppBar() {
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
+  const handleChange = (event) => {
+    setAuth(event.target.checked);
+  };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -40,6 +44,12 @@ export default function Test() {
 
   return (
     <div className={classes.root}>
+      <FormGroup>
+        <FormControlLabel
+          control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
+          label={auth ? 'Logout' : 'Login'}
+        />
+      </FormGroup>
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
