@@ -25,6 +25,11 @@ class Test extends Component{
     }
 }
 
+function Prueba(){
+    return(
+        <p>hola desde la funcion</p>
+    );
+}
 
 class Header extends Component{
     constructor(props){
