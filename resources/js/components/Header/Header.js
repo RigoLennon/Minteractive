@@ -1,35 +1,7 @@
 import React, { Component } from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import { makeStyles } from '@material-ui/core/styles';
-
-const pruebTexto = "Hola mundo";
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
-  }));
-
-class Test extends Component{
-    render(){
-    return <p>{this.props.nombre}</p>
-    }
-}
-
-function Prueba(){
-    return(
-        <p>hola desde la funcion</p>
-    );
-}
+import { Button, Navbar, Nav, NavDropdown, Form, FormControl} from 'react-bootstrap';
+import { MdAccessibility } from "react-icons/md";
 
 class Header extends Component{
     constructor(props){
@@ -38,69 +10,31 @@ class Header extends Component{
         this.state = {
             user: props.userData,
             isLoggedIn: props.userIsLoggedIn,
-            prueba: pruebTexto,
-            styles: useStyles
         };
 
         this.logOut = this.logOut.bind(this);
     }
 
     logOut(){
-        let appState = {
-            isLoggedIn: false,
-            user: {}
-        };
+      let appState = {
+          isLoggedIn: false,
+          user: {}
+      };
 
-        localStorage["appState"] = JSON.stringify(appState);
-        this.setState(appState);
-        this.props.history.push('/login');
-    }
-
-    test(){
-        const [name, setName] = 'Prueba';
-        return <p name={name}></p>
-    }
+      localStorage["appState"] = JSON.stringify(appState);
+      this.setState(appState);
+      this.props.history.push('/login');
+  }
 
     render(){
         const aStyle ={
             cursor: 'pointer'
         };
 
-        const classes = this.state.styles;
-
-        const open = this.state.open;
-  
-        const handleMenu = this.state.handleMenu;
-  
-        const handleClose = this.state.handleClose;
-
-        const anchorEl = this.state.anchorEl;
-
-        const auth = this.state.auth;
-
-        const nombre = this.state.user.name;
-
-        return(
-            <div className={classes.root}>
-                <AppBar position="static">
-                    <Toolbar>
-                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="h6" className={classes.title}>
-                            Inicio
-                            <Test nombre={nombre}/>
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
-                
-            <nav className="navbar">
-                <ul>
-                    <li><Link to="/">Index</Link></li>
-                    {this.state.isLoggedIn ? 
+        /*{this.state.isLoggedIn ? 
                         <li className="has-sub">
                             <Link to="/dashboard">Dashboard</Link>
-                    <p>{this.state.user.email}</p>
+                            <p>{this.state.user.email}</p>
                             <p onClick={this.logOut}>cerrar</p>
                         </li> : ""
                     }
@@ -110,12 +44,42 @@ class Header extends Component{
                             |
                             <Link to="/register">Register</Link>
                         </li> : ""
-                    }
-                </ul>
-                {this.state.prueba}
-            </nav>
-            </div>
-        );
+                    }*/
+
+        return (
+          <div>
+            <Navbar bg="primary"  variant="dark">
+              <Navbar.Brand href="#home">Inicio</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+
+                {this.state.isLoggedIn ?
+                <Nav className="mr-auto">
+                  <Nav.Link href="#home">Home</Nav.Link>
+                  <NavDropdown title={<MdAccessibility />} id="basic-nav-dropdown">
+                    <NavDropdown.Item href="/dashboard">Mi cuenta</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={this.logOut}>Cerrar Sesion</NavDropdown.Item>
+                  </NavDropdown>
+                </Nav>
+                : ""}
+
+                {!this.state.isLoggedIn ?
+
+                <Nav className="mr-auto">
+                  <Nav.Link href="#home">Home</Nav.Link>
+                  <Nav.Link href="#link">Bienvenido {this.state.user.name}</Nav.Link>
+                  <NavDropdown title={<MdAccessibility />} id="basic-nav-dropdown">
+                    <NavDropdown.Item href="/login">Iniciar sesion</NavDropdown.Item>
+                    <NavDropdown.Item href="/register">Registro</NavDropdown.Item>
+                  </NavDropdown>
+                </Nav>
+                : ""}
+              </Navbar.Collapse>
+            </Navbar>
+          </div>
+          );
     }
+
 }
 export default withRouter(Header);
