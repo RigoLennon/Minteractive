@@ -48,28 +48,53 @@ class Header extends Component{
 
         return (
           <div>
-            <Navbar bg="primary"  variant="dark">
-              <Navbar.Brand href="#home">Inicio</Navbar.Brand>
+            {/*<Navbar bg="primary"  variant="dark">
+              <Navbar.Brand href="/">Inicio</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-
+                <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                 {this.state.isLoggedIn ?
-                <Nav className="mr-auto">
-                  <Nav.Link href="#home">Home</Nav.Link>
-                  <NavDropdown title={<MdAccessibility />} id="basic-nav-dropdown">
+                  <Nav >
+                    <Navbar.Text>Bienvenido {this.state.user.name}</Navbar.Text>
+                    <NavDropdown title={<MdAccessibility />} id="basic-nav-dropdown">
                     <NavDropdown.Item href="/dashboard">Mi cuenta</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={this.logOut}>Cerrar Sesion</NavDropdown.Item>
                   </NavDropdown>
-                </Nav>
-                : ""}
-
+                  </Nav>
+                  : ""}
+                </Navbar.Collapse>
+                
                 {!this.state.isLoggedIn ?
 
                 <Nav className="mr-auto">
-                  <Nav.Link href="#home">Home</Nav.Link>
-                  <Nav.Link href="#link">Bienvenido {this.state.user.name}</Nav.Link>
                   <NavDropdown title={<MdAccessibility />} id="basic-nav-dropdown">
+                    <NavDropdown.Item href="/login">Iniciar sesion</NavDropdown.Item>
+                    <NavDropdown.Item href="/register">Registro</NavDropdown.Item>
+                  </NavDropdown>
+                </Nav>
+                : ""}
+              
+                </Navbar>*/}
+
+            <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
+              <Navbar.Brand href="/">Inicio</Navbar.Brand>
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
+              {this.state.isLoggedIn ?
+                  <Nav >
+                    <Navbar.Text>Bienvenido {this.state.user.name}</Navbar.Text>
+                    <NavDropdown title={<MdAccessibility />} id="basic-nav-dropdown" drop={'left'}>
+                    <NavDropdown.Item href="/dashboard">Mi cuenta</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={this.logOut}>Cerrar Sesion</NavDropdown.Item>
+                  </NavDropdown>
+                  </Nav>
+                  : ""}
+                
+                {!this.state.isLoggedIn ?
+
+                <Nav>
+                  <NavDropdown title={<MdAccessibility />} id="basic-nav-dropdown" drop={'left'}>
                     <NavDropdown.Item href="/login">Iniciar sesion</NavDropdown.Item>
                     <NavDropdown.Item href="/register">Registro</NavDropdown.Item>
                   </NavDropdown>

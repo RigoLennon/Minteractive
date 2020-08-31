@@ -10,6 +10,7 @@ import Test from './components/componentsTesting';
 //Si el usuario esta loggeado
 import PrivateRoute from './PrivateRoute';
 import Dashboard from './views/user/Dashboard/Dashboard';
+import CreateProduct from './views/Products/CreateProduct';
 
 const Main = props => (
     <Switch>
@@ -19,6 +20,7 @@ const Main = props => (
         <Route path='/register' component={Register}/>
 
         <PrivateRoute path='/dashboard' component={Dashboard} />
+        <PrivateRoute path='/create-product' component={CreateProduct} />
 
         <Route path='/components-testing' component={Test} />
 

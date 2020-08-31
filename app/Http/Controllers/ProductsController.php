@@ -23,12 +23,6 @@ class ProductsController extends Controller
             'file' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
-        $imageName = time().'.'.request()->image->getClientOriginalExtension();
-
-        request()->image->move(public_path('images'), $imageName);
-
-        $product = Product::create($request->all());
-
         return response()->json($product,201);
     }
 

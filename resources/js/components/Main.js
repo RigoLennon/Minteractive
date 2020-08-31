@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import {Button, Grid, CardHeader, CardMedia, CardContent, Typography, Card, CardActions} from '@material-ui/core';
-
 import Product from './Product';
 import AppBarD from './AppBar';
-
-import test from '../../../public/images/test.png';
 
 class Main extends Component {
 
