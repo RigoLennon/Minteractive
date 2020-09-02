@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import ShowProducts from '../../views/Products/ShowProducts';
 
 class Home extends Component{
     constructor(){
@@ -26,6 +27,8 @@ class Home extends Component{
             <div>
                 <Header userData={this.state.user} userIsLoggedIn={this.state.isLoggedIn} />
                 <span>Whatever normally goes into the home/index page; A Plea To Heal The World for instance</span>
+                <p>{this.state.user.name} : p</p>
+                <ShowProducts />
                 <Footer />
             </div>
         );

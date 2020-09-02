@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "minteractivedev",
+            "driver": "MySQL",
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "name": "minteractivedev",
+            "password": "Martinespro51#",
+            "port": 3306,
+            "previewLimit": 50,
+            "server": "localhost",
+            "username": "minteractive"
+        }
+    ]
+}

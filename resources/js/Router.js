@@ -6,6 +6,7 @@ import Login from './views/Login/Login';
 import Register from './views/Register/Register';
 import NotFound from './views/NotFound/NotFound';
 import Test from './components/componentsTesting';
+import ShowProducts from './views/Products/ShowProducts';
 
 //Si el usuario esta loggeado
 import PrivateRoute from './PrivateRoute';
@@ -23,6 +24,7 @@ const Main = props => (
         <PrivateRoute path='/create-product' component={CreateProduct} />
 
         <Route path='/components-testing' component={Test} />
+        <Route path='/products' component={ShowProducts} />
 
         <Route component={NotFound} />
     </Switch>

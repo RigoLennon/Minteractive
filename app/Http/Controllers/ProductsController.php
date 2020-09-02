@@ -8,7 +8,7 @@ use App\Product;
 class ProductsController extends Controller
 {
     public function index(){
-        return Product::all();
+        return Product::orderBy('id', 'DESC')->get();
     }
 
     public function show(Product $product){
