@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {Card, Button} from 'react-bootstrap';
+import {Card, Button, Container, Row} from 'react-bootstrap';
 
 class ShowProducts extends Component{
     constructor(){
@@ -32,18 +32,22 @@ class ShowProducts extends Component{
     }
 
     renderProducts(){
-        return this.state.products.map((product, index) => {
+        return this.state.products.map((product, id) => {
             return(
-                <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="holder.js/100px180" />
-                    <Card.Body>
-                        <Card.Title key={index}>{product.name}</Card.Title>
-                        <Card.Text>
-                            {product.description}
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                </Card>
+                <Container fluid="sm" key={id}>
+                <Row className="justify-content-sm-center">
+                    <Card style={{ width: '18rem' }}>
+                        <Card.Img variant="top" src="#" />
+                        <Card.Body>
+                            <Card.Title>{product.name}</Card.Title>
+                                <Card.Text>
+                                    {product.description}
+                                </Card.Text>
+                                <Button variant="primary">Go somewhere</Button>
+                            </Card.Body>
+                    </Card>
+                </Row>
+                </Container>
             );
         })
     }
@@ -52,7 +56,7 @@ class ShowProducts extends Component{
         
             return(
                 <div>
-                    <h1>Products</h1>
+                    <h1>Productos</h1>
                     {this.renderProducts()}
                 </div>
             );
