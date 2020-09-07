@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Link, Route, Switch, useLocation} from 'react-router-dom';
 
 import {Card, Button, Container, Row} from 'react-bootstrap';
 
-import DetailProduct from '../Products/DetailProduct';
+import Header from '../../components/Header/Header';
 
-class ShowProducts extends Component{
-    constructor(){
-        super();
+class DetailProduct extends Component{
+    constructor(props){
+        super(props);
 
         this.state={
             isLoggedIn: false,
             user:{},
-            products: [],
+            products: {},
         }
     }
     componentWillMount(){
@@ -25,7 +24,8 @@ class ShowProducts extends Component{
     }
 
     componentDidMount(){
-        fetch('/api/products')
+        fetch('/api/products/' + this.props.match.params.id
+        )
         .then(response => {
             return response.json();
         })
@@ -34,40 +34,35 @@ class ShowProducts extends Component{
         });
     }
 
-    renderProducts(){
-        return this.state.products.map((product, id) => {
+    renderProduct(){
             return(
-                <Container fluid="sm" key={id}>
+                <Container fluid="sm" key={this.state.products.id}>
                 <Row className="justify-content-sm-center">
                     <Card style={{ width: '18rem' }}>
                         <Card.Img variant="top" src="#" />
                         <Card.Body>
-                            <Card.Title>{product.name}</Card.Title>
+                            <Card.Title>{this.state.products.name}</Card.Title>
                                 <Card.Text>
-                                    {product.description}
-                                    {product.id}
+                                    {this.state.products.description}
                                 </Card.Text>
-                                {/*<Button variant="primary" onClick={this.handleClick.bind(this)} data-id={product.id}>Go somewhere</Button>*/}
-                                <Link to={{pathname: '/product-detail/'+product.id}} className="btn btn-primary">View Details</Link> 
+                                <Button variant="primary">Go somewhere</Button>
                             </Card.Body>
                     </Card>
                 </Row>
                 </Container>
             );
-        })
     }
 
     render(){
         
             return(
                 <div>
+                    <Header />
                     <h1>Productos</h1>
-                    {this.renderProducts()}
+                    {this.renderProduct()}
                 </div>
             );
     }
 }
 
-
-
-export default ShowProducts;
+export default DetailProduct;
