@@ -44,8 +44,7 @@ class ShowProducts extends Component{
                         <Card.Body>
                             <Card.Title>{product.name}</Card.Title>
                                 <Card.Text>
-                                    {product.description}
-                                    {product.id}
+                                    {product.short_descrip}
                                 </Card.Text>
                                 {/*<Button variant="primary" onClick={this.handleClick.bind(this)} data-id={product.id}>Go somewhere</Button>*/}
                                 <Link to={{pathname: '/product-detail/'+product.id}} className="btn btn-primary">View Details</Link> 

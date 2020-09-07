@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
@@ -12,7 +13,16 @@ class ProductsController extends Controller
     }
 
     public function show(Product $product){
-        return $product;
+        /*$product = DB::table('products')
+            ->join('product_categories', 'products.cat_id', '=', 'product_categories.id')
+            ->select('products.*', 'product_categories.cat_name')
+            //->orderBy('prodid', 'DESC')
+            ->get();*/
+        return $product = DB::table('products')
+        ->join('product_categories', 'products.cat_id', '=', 'product_categories.id')
+        ->select('products.*', 'product_categories.cat_name')
+        //->orderBy('prodid', 'DESC')
+        ->get();
     }
 
     public function store(Request $request){

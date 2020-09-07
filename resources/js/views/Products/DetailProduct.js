@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {Card, Button, Container, Row} from 'react-bootstrap';
+import {Card, Button, Container, Row, Carousel, Badge} from 'react-bootstrap';
 
 import Header from '../../components/Header/Header';
 
@@ -11,7 +11,7 @@ class DetailProduct extends Component{
         this.state={
             isLoggedIn: false,
             user:{},
-            products: {},
+            products: [],
         }
     }
     componentWillMount(){
@@ -26,40 +26,86 @@ class DetailProduct extends Component{
     componentDidMount(){
         fetch('/api/products/' + this.props.match.params.id
         )
-        .then(response => {
-            return response.json();
-        })
-        .then(products => {
-            this.setState({ products });
-        });
+        .then(response => response.json().then(result => {
+            this.setState({ products: result });
+        }))
+        .catch((err) => { throw err; });
     }
 
-    renderProduct(){
-            return(
-                <Container fluid="sm" key={this.state.products.id}>
-                <Row className="justify-content-sm-center">
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src="#" />
-                        <Card.Body>
-                            <Card.Title>{this.state.products.name}</Card.Title>
-                                <Card.Text>
-                                    {this.state.products.description}
-                                </Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
-                            </Card.Body>
-                    </Card>
-                </Row>
-                </Container>
-            );
-    }
+        
 
     render(){
-        
+        console.log(this.state.products);
             return(
                 <div>
                     <Header />
-                    <h1>Productos</h1>
-                    {this.renderProduct()}
+                    <Carousel>
+                        <Carousel.Item>
+                            <img
+                            className="d-block w-100"
+                            src="https://picsum.photos/id/1080/800/500"
+                            alt="First slide"
+                            />
+                            <Carousel.Caption>
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img
+                            className="d-block w-100"
+                            src="https://picsum.photos/id/1080/800/500"
+                            alt="Third slide"
+                            />
+
+                            <Carousel.Caption>
+                            <h3>Second slide label</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img
+                            className="d-block w-100"
+                            src="https://picsum.photos/id/1080/800/500"
+                            alt="Third slide"
+                            />
+
+                            <Carousel.Caption>
+                            <h3>Third slide label</h3>
+                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                    </Carousel>
+                    {/*<h2>{this.state.products.name}</h2>
+                    <hr></hr>
+                    <p>{this.state.products.description}</p>
+                    <h3>Precio ${this.state.products.price}</h3>
+                    <br></br>
+                    <hr></hr>
+                    <h5>Tipo de comida</h5>
+                    <p><Badge variant="secondary">{this.state.products.cat_name}</Badge></p>
+                    <p>{this.state.products.cat_name}</p>
+                    <br></br>
+                    <hr></hr>
+                    <h5>Platillos similares</h5>*/}
+                    <div>
+                    {this.state.products.map((product, index) => (
+                    <div key={index}>
+                        <h2>{product.name}</h2>
+                    <hr></hr>
+                    <p>{product.description}</p>
+                    <h3>Precio ${product.price}</h3>
+                    <br></br>
+                    <hr></hr>
+                    <h5>Tipo de comida</h5>
+                    <p><Badge variant="secondary">{product.cat_name}</Badge></p>
+                    <p>{this.state.products.cat_name}</p>
+                    <br></br>
+                    <hr></hr>
+                    <h5>Platillos similares</h5>
+                    </div>
+                    ))}
+                </div>
                 </div>
             );
     }
