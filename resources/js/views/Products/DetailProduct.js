@@ -32,9 +32,18 @@ class DetailProduct extends Component{
         .catch((err) => { throw err; });
     }
 
-        
+    /*componentDidMount(){
+        fetch('/api/products/' + this.props.match.params.id)
+        .then(response => {
+            return response.json();
+        })
+        .then(products => {
+            this.setState({ products });
+        });
+    }*/
 
     render(){
+        console.log(this.props.match.params.id);
         console.log(this.state.products);
             return(
                 <div>
@@ -46,10 +55,10 @@ class DetailProduct extends Component{
                             src="https://picsum.photos/id/1080/800/500"
                             alt="First slide"
                             />
-                            <Carousel.Caption>
+                            {/*<Carousel.Caption>
                             <h3>First slide label</h3>
                             <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                            </Carousel.Caption>
+                            </Carousel.Caption>*/}
                         </Carousel.Item>
                         <Carousel.Item>
                             <img
@@ -57,11 +66,6 @@ class DetailProduct extends Component{
                             src="https://picsum.photos/id/1080/800/500"
                             alt="Third slide"
                             />
-
-                            <Carousel.Caption>
-                            <h3>Second slide label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </Carousel.Caption>
                         </Carousel.Item>
                         <Carousel.Item>
                             <img
@@ -69,11 +73,6 @@ class DetailProduct extends Component{
                             src="https://picsum.photos/id/1080/800/500"
                             alt="Third slide"
                             />
-
-                            <Carousel.Caption>
-                            <h3>Third slide label</h3>
-                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                            </Carousel.Caption>
                         </Carousel.Item>
                     </Carousel>
                     {/*<h2>{this.state.products.name}</h2>
