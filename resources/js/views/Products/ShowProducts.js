@@ -38,17 +38,16 @@ class ShowProducts extends Component{
         return this.state.products.map((product, id) => {
             return(
                 <Container fluid="sm" key={id}>
+                <br></br>
                 <Row className="justify-content-sm-center">
                     <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src="#" />
+                        <Card.Img variant="top" src="https://picsum.photos/id/1080/800/500" />
                         <Card.Body>
                             <Card.Title>{product.name}</Card.Title>
                                 <Card.Text>
-                                    {product.description}
-                                    {product.id}
+                                    {product.short_descrip}
                                 </Card.Text>
-                                {/*<Button variant="primary" onClick={this.handleClick.bind(this)} data-id={product.id}>Go somewhere</Button>*/}
-                                <Link to={{pathname: '/product-detail/'+product.id}} className="btn btn-primary">View Details</Link> 
+                                <Link to={{pathname: '/product-detail/' + product.id}} className="btn btn-primary">Ver mas</Link> 
                             </Card.Body>
                     </Card>
                 </Row>
