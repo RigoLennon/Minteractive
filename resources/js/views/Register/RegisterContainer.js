@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import FlashMessage from 'react-flash-message';
+import axios from 'axios';
 class RegisterContainer extends Component {
   // 2.1
   constructor(props) {

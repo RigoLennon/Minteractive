@@ -23,6 +23,8 @@ Route::get('products', 'ProductsController@index');
  
 Route::get('products/{product}', 'ProductsController@show');
  
+
+
 Route::post('products','ProductsController@store');
  
 Route::put('products/{product}','ProductsController@update');
