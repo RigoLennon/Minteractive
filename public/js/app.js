@@ -55506,8 +55506,6 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
     _classCallCheck(this, CreateProduct);
 
     _this = _super.call(this, props);
-    /* Initialize the state. */
-
     _this.state = {
       name: '',
       description: '',

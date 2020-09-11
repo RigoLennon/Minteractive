@@ -8,14 +8,13 @@ import {Link, History} from 'react-router-dom';
 class CreateProduct extends Component{
     constructor(props) {
         super(props);
-           /* Initialize the state. */
-           this.state = {
-                  name: '',
-                  description: '',
-                  price: 0,
-                  short_descrip: 0
-            }
-         
+        this.state = {
+          name: '',
+          description: '',
+          price: 0,
+          short_descrip: 0
+        }
+        
         this.handleChangeNombre = this.handleChangeNombre.bind(this);
         this.handleChangeDescp  = this.handleChangeDescp.bind(this);
         this.handleChangePreci  = this.handleChangePreci.bind(this);
