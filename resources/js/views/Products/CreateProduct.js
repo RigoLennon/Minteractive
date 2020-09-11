@@ -3,124 +3,100 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-//import {browserHistory} from 'react-router-dom';
+import {Link, History} from 'react-router-dom';
 
 class CreateProduct extends Component{
-    constructor(props){
+    constructor(props) {
         super(props);
+           /* Initialize the state. */
+           this.state = {
+                  name: '',
+                  description: '',
+                  price: 0,
+                  short_descrip: 0
+            }
+         
+        this.handleChangeNombre = this.handleChangeNombre.bind(this);
+        this.handleChangeDescp  = this.handleChangeDescp.bind(this);
+        this.handleChangePreci  = this.handleChangePreci.bind(this);
+        this.handleChangeShrtDescp  = this.handleChangeShrtDescp.bind(this);
+      }
 
-        this.state={
-            isLoggedIn: false,
-            user:{},
-            productName: '',
-            productDescription: '',
-            productPrice: '',
-            productShortDescr: '',
-            //productUser: ''
-        }
-
-        this.handleName = this.handleName.bind(this);
-        this.handleDescription = this.handleDescription.bind(this);
-        this.handlePrice = this.handlePrice.bind(this);
-        this.handleShortDescr = this.handleShortDescr.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+    handleChangeNombre(event) {
+      this.setState({formNombre: event.target.value});
     }
 
-    componentWillMount(){
-        let state = localStorage["appState"];
-
-        if(state){
-            let AppState = JSON.parse(state);
-            this.setState({ isLoggedIn: AppState.isLoggedIn, user:AppState.user});
-        }
+    handleChangeDescp(event) {
+      this.setState({formDescripcion: event.target.value});
     }
 
-    handleName(e){
-        this.setState({
-            productName: e.target.value
-        })
+    handleChangePreci(event) {
+      this.setState({formPrecio: event.target.value});
     }
 
-    handleDescription(e){
-        this.setState({
-            productDescription: e.target.value
-        })
+    handleChangeShrtDescp(event) {
+        this.setState({formShrtDescp: event.target.value});
     }
 
-    handlePrice(e){
-        this.setState({
-            productPrice: e.target.value
-        })
-    }
+    sendNetworkProduct(){
 
-    handleShortDescr(e){
-        this.setState({
-            productShortDescr: e.target.value
-        })
-    }
-
-    handleSubmit(e){
-        e.preventDefault();
-        const products = {
-            name: this.state.productName,
-            description: this.state.productDescription,
-            price: this.state.productPrice,
-            shortdescr: this.state.productShortDescr,
-        }
-
-        let uri = 'http://localhost:8000/api/products';
-
-        axios.post(uri, products)
-        .then((response)=>{
-            console.log('producto añadido');
-        })
-    }
-
-    render(){
+        const formData = new FormData()
+        formData.append('nombre',this.state.formNombre)
+        formData.append('descripcion',this.state.formDescripcion)
+        formData.append('precio',this.state.formPrecio)
+        formData.append('short_descrip',this.state.formShrtDescp)
+  
+        axios.post('/api/products',formData).then(response=>{
+  
+             if (response.data.success==true) {
+               alert(response.data.message)
+             }
+  
+         }).catch(error=>{
+           alert("Error "+error)
+         })
+  
+      }
+     
+    render() {         
         return(
+          <div> 
+            <form>
             <div>
-                <Header />
-                <h1>Create An Item</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label>Nombre:</label>
-                                <input type="text" className="form-control" onChange={this.handleName}/>
-                            </div>
-                        </div>
+              <div>
+                <div>
+                  <div>
+                    <h5 id="exampleModalLabel">Formulario de producto</h5>
+                  </div>
+                  <div>
+                    <div>
+                     <label>Nombre de producto </label>
+                     <input type="text" value={this.state.formNombre} onChange={this.handleChangeNombre} />
                     </div>
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label>Descripcion:</label>
-                                <input type="text" className="form-control col-md-6" onChange={this.handleDescription}/>
-                            </div>
-                        </div>
+                    <div>
+                     <label >Descripcion de producto</label>
+                     <textarea value={this.state.formDescripcion} onChange={this.handleChangeDescp}></textarea>
                     </div>
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label>Item Price:</label>
-                                <input type="text" className="form-control col-md-6" onChange={this.handlePrice}/>
-                            </div>
-                        </div>
+                    <div>
+                     <label>Precio</label>
+                     <input type="number" value={this.state.formPrecio} onChange={this.handleChangePreci} />
                     </div>
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label>Resumen:</label>
-                                <input type="text" className="form-control col-md-6" onChange={this.handleShortDescr}/>
-                            </div>
-                        </div>
-                    </div><br />
-                    <div className="form-group">
-                        <button className="btn btn-primary">Agregar</button>
+                    <div >
+                     <label>Precio</label>
+                     <input type="text" value={this.state.formShrtDescp} onChange={this.handleChangeShrtDescp} />
                     </div>
-                </form>
-        </div>
-        );
+                  </div>
+                  <div>
+                    <button type="button" data-dismiss="modal">Cancelar</button>
+                    
+                    <Link to="/"><button type="button" onClick={()=>this.sendNetworkProduct()} >Guardar</button></Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </form>
+        </div>)
+      }
     }
-}
 
 export default CreateProduct;

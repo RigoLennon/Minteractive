@@ -55465,6 +55465,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55491,7 +55492,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
- //import {browserHistory} from 'react-router-dom';
+
+
 
 var CreateProduct = /*#__PURE__*/function (_Component) {
   _inherits(CreateProduct, _Component);
@@ -55504,129 +55506,98 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
     _classCallCheck(this, CreateProduct);
 
     _this = _super.call(this, props);
-    _this.state = {
-      isLoggedIn: false,
-      user: {},
-      productName: '',
-      productDescription: '',
-      productPrice: '',
-      productShortDescr: '' //productUser: ''
+    /* Initialize the state. */
 
+    _this.state = {
+      name: '',
+      description: '',
+      price: 0,
+      short_descrip: 0
     };
-    _this.handleName = _this.handleName.bind(_assertThisInitialized(_this));
-    _this.handleDescription = _this.handleDescription.bind(_assertThisInitialized(_this));
-    _this.handlePrice = _this.handlePrice.bind(_assertThisInitialized(_this));
-    _this.handleShortDescr = _this.handleShortDescr.bind(_assertThisInitialized(_this));
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleChangeNombre = _this.handleChangeNombre.bind(_assertThisInitialized(_this));
+    _this.handleChangeDescp = _this.handleChangeDescp.bind(_assertThisInitialized(_this));
+    _this.handleChangePreci = _this.handleChangePreci.bind(_assertThisInitialized(_this));
+    _this.handleChangeShrtDescp = _this.handleChangeShrtDescp.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(CreateProduct, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      var state = localStorage["appState"];
-
-      if (state) {
-        var AppState = JSON.parse(state);
-        this.setState({
-          isLoggedIn: AppState.isLoggedIn,
-          user: AppState.user
-        });
-      }
-    }
-  }, {
-    key: "handleName",
-    value: function handleName(e) {
+    key: "handleChangeNombre",
+    value: function handleChangeNombre(event) {
       this.setState({
-        productName: e.target.value
+        formNombre: event.target.value
       });
     }
   }, {
-    key: "handleDescription",
-    value: function handleDescription(e) {
+    key: "handleChangeDescp",
+    value: function handleChangeDescp(event) {
       this.setState({
-        productDescription: e.target.value
+        formDescripcion: event.target.value
       });
     }
   }, {
-    key: "handlePrice",
-    value: function handlePrice(e) {
+    key: "handleChangePreci",
+    value: function handleChangePreci(event) {
       this.setState({
-        productPrice: e.target.value
+        formPrecio: event.target.value
       });
     }
   }, {
-    key: "handleShortDescr",
-    value: function handleShortDescr(e) {
+    key: "handleChangeShrtDescp",
+    value: function handleChangeShrtDescp(event) {
       this.setState({
-        productShortDescr: e.target.value
+        formShrtDescp: event.target.value
       });
     }
   }, {
-    key: "handleSubmit",
-    value: function handleSubmit(e) {
-      e.preventDefault();
-      var products = {
-        name: this.state.productName,
-        description: this.state.productDescription,
-        price: this.state.productPrice,
-        shortdescr: this.state.productShortDescr
-      };
-      var uri = 'http://localhost:8000/api/products';
-      axios__WEBPACK_IMPORTED_MODULE_4___default.a.post(uri, products).then(function (response) {
-        console.log('producto añadido');
+    key: "sendNetworkProduct",
+    value: function sendNetworkProduct() {
+      var formData = new FormData();
+      formData.append('nombre', this.state.formNombre);
+      formData.append('descripcion', this.state.formDescripcion);
+      formData.append('precio', this.state.formPrecio);
+      formData.append('short_descrip', this.state.formShrtDescp);
+      axios__WEBPACK_IMPORTED_MODULE_4___default.a.post('/api/products', formData).then(function (response) {
+        if (response.data.success == true) {
+          alert(response.data.message);
+        }
+      })["catch"](function (error) {
+        alert("Error " + error);
       });
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header_Header__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Create An Item"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-6"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form-group"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Nombre:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      var _this2 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        id: "exampleModalLabel"
+      }, "Formulario de producto")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Nombre de producto "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        className: "form-control",
-        onChange: this.handleName
-      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-6"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form-group"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Descripcion:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        value: this.state.formNombre,
+        onChange: this.handleChangeNombre
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Descripcion de producto"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        value: this.state.formDescripcion,
+        onChange: this.handleChangeDescp
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Precio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "number",
+        value: this.state.formPrecio,
+        onChange: this.handleChangePreci
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Precio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        className: "form-control col-md-6",
-        onChange: this.handleDescription
-      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-6"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form-group"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Item Price:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        className: "form-control col-md-6",
-        onChange: this.handlePrice
-      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-6"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form-group"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Resumen:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        className: "form-control col-md-6",
-        onChange: this.handleShortDescr
-      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form-group"
+        value: this.state.formShrtDescp,
+        onChange: this.handleChangeShrtDescp
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        "data-dismiss": "modal"
+      }, "Cancelar"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+        to: "/"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn btn-primary"
-      }, "Agregar"))));
+        type: "button",
+        onClick: function onClick() {
+          return _this2.sendNetworkProduct();
+        }
+      }, "Guardar"))))))));
     }
   }]);
 

@@ -23,23 +23,17 @@ class ProductsController extends Controller
     }
 
     public function store(Request $request){
-        /*$this->validate($request,[
-            'name' => 'required|unique:products|max:255',
-            'description'=> 'required',
-            'price' => 'required|integer',
-        ]);*/
-
-        $product = new Product([
-            'name' => $request->get('name'),
-            'description' => $request->get('description'),
-            'price' => $request->get('price'),
-            'short_descrip' => $request->get('short_descrip'),
+        Product::insert([
+            'name' => $request->input('nombre'),
+            'description' => $request->input('descripcion'),
+            'price' => $request->input('precio'),
+            'short_descrip' => $request->input('short_descrip'),
         ]);
 
-        $product->save();
+        $response['message'] = 'Guardado con exito';
+        $response['success'] = true;
 
-        //return response()->json($product,201);
-        return response()->json('Se añadio el producto correctamente.');
+        return $response;
     }
 
     public function edit($id){
