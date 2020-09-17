@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
+
+    public function ProductCategories(){
+        $products_cat = DB::table('product_categories')
+            ->select('id', 'cat_name')
+            ->get();
+        
+        return $products_cat;
+    }
+
     public function index(){
         return Product::orderBy('id', 'DESC')->get();
     }
@@ -28,6 +37,7 @@ class ProductsController extends Controller
             'description' => $request->input('descripcion'),
             'price' => $request->input('precio'),
             'short_descrip' => $request->input('short_descrip'),
+            'cat_id' => $request->input('cat_id'),
         ]);
 
         $response['message'] = 'Guardado con exito';

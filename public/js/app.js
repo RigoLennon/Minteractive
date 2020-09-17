@@ -55510,12 +55510,15 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
       name: '',
       description: '',
       price: 0,
-      short_descrip: 0
+      short_descrip: '',
+      cat_id: '',
+      categories: []
     };
     _this.handleChangeNombre = _this.handleChangeNombre.bind(_assertThisInitialized(_this));
     _this.handleChangeDescp = _this.handleChangeDescp.bind(_assertThisInitialized(_this));
     _this.handleChangePreci = _this.handleChangePreci.bind(_assertThisInitialized(_this));
     _this.handleChangeShrtDescp = _this.handleChangeShrtDescp.bind(_assertThisInitialized(_this));
+    _this.handleChangeCategory = _this.handleChangeCategory.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -55548,13 +55551,21 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
+    key: "handleChangeCategory",
+    value: function handleChangeCategory(event) {
+      this.setState({
+        formCategory: event.target.value
+      });
+    }
+  }, {
     key: "sendNetworkProduct",
     value: function sendNetworkProduct() {
       var formData = new FormData();
       formData.append('nombre', this.state.formNombre);
       formData.append('descripcion', this.state.formDescripcion);
       formData.append('precio', this.state.formPrecio);
-      formData.append('short_descrip', this.state.formShrtDescp);
+      formData.append('short_descrip', this.state.formShrtDescp); //formData.append('cat_id',this.state.formCategory)
+
       axios__WEBPACK_IMPORTED_MODULE_4___default.a.post('/api/products', formData).then(function (response) {
         if (response.data.success == true) {
           alert(response.data.message);
@@ -55564,49 +55575,37 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
-    key: "render",
-    value: function render() {
+    key: "componentDidMount",
+    value: function componentDidMount() {
       var _this2 = this;
 
-      {
-        /*return(
-         <div> 
-           <form>
-           <div>
-             <div>
-               <div>
-                 <div>
-                   <h5 id="exampleModalLabel">Formulario de producto</h5>
-                 </div>
-                 <div>
-                   <div>
-                    <label>Nombre de producto </label>
-                    <input type="text" value={this.state.formNombre} onChange={this.handleChangeNombre} />
-                   </div>
-                   <div>
-                    <label >Descripcion de producto</label>
-                    <textarea value={this.state.formDescripcion} onChange={this.handleChangeDescp}></textarea>
-                   </div>
-                   <div>
-                    <label>Precio</label>
-                    <input type="number" value={this.state.formPrecio} onChange={this.handleChangePreci} />
-                   </div>
-                   <div >
-                    <label>Precio</label>
-                    <input type="text" value={this.state.formShrtDescp} onChange={this.handleChangeShrtDescp} />
-                   </div>
-                 </div>
-                 <div>
-                   <button type="button" data-dismiss="modal">Cancelar</button>
-                   
-                   <Link to="/"><button type="button" onClick={()=>this.sendNetworkProduct()} >Guardar</button></Link>
-                 </div>
-               </div>
-             </div>
-           </div>
-           </form>
-        </div>)*/
-      }
+      fetch('/api/products/categories').then(function (response) {
+        return response.json();
+      }).then(function (categories) {
+        _this2.setState({
+          categories: categories
+        });
+      });
+    }
+  }, {
+    key: "renderCategories",
+    value: function renderCategories() {
+      var _this3 = this;
+
+      return this.state.categories.map(function (cat, id) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: cat.id,
+          value: cat.id,
+          onChange: _this3.handleChangeCategory
+        }, cat.cat_name);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this4 = this;
+
+      console.log('cat_id: ' + this.state.cat_id);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header_Header__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
         as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"],
         controlId: "formHorizontalName"
@@ -55662,20 +55661,24 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
         as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"],
         controlId: "formGridState"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "State"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Control, {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Selecciona una categoria"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Control, {
         as: "select",
-        defaultValue: "Choose..."
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Choose..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "..."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
+        defaultValue: "Seleccionar..."
+        /*value={this.state.formCategory} onChange={this.handleChangeCategory}*/
+
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Seleccionar..."), this.renderCategories())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
         as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"]
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
         sm: {
           span: 10,
           offset: 2
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+        to: "/"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         type: "submit",
         onClick: function onClick() {
-          return _this2.sendNetworkProduct();
+          return _this4.sendNetworkProduct();
         }
       }, "Confirmar"))))));
     }

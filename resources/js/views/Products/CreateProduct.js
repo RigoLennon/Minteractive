@@ -12,13 +12,16 @@ class CreateProduct extends Component{
           name: '',
           description: '',
           price: 0,
-          short_descrip: 0
+          short_descrip: '',
+          cat_id: '',
+          categories: [],
         }
         
         this.handleChangeNombre = this.handleChangeNombre.bind(this);
         this.handleChangeDescp  = this.handleChangeDescp.bind(this);
         this.handleChangePreci  = this.handleChangePreci.bind(this);
         this.handleChangeShrtDescp  = this.handleChangeShrtDescp.bind(this);
+        this.handleChangeCategory  = this.handleChangeCategory.bind(this);
       }
 
     handleChangeNombre(event) {
@@ -37,12 +40,17 @@ class CreateProduct extends Component{
         this.setState({formShrtDescp: event.target.value});
     }
 
+    handleChangeCategory(event){
+      this.setState({formCategory: event.target.value})
+    }
+
     sendNetworkProduct(){
       const formData = new FormData()
       formData.append('nombre',this.state.formNombre)
       formData.append('descripcion',this.state.formDescripcion)
       formData.append('precio',this.state.formPrecio)
       formData.append('short_descrip',this.state.formShrtDescp)
+      //formData.append('cat_id',this.state.formCategory)
   
       axios.post('/api/products',formData).then(response=>{
         if (response.data.success==true) {
@@ -53,44 +61,31 @@ class CreateProduct extends Component{
       })
     }
 
-    render() {         
-        {/*return(
-          <div> 
-            <form>
-            <div>
-              <div>
-                <div>
-                  <div>
-                    <h5 id="exampleModalLabel">Formulario de producto</h5>
-                  </div>
-                  <div>
-                    <div>
-                     <label>Nombre de producto </label>
-                     <input type="text" value={this.state.formNombre} onChange={this.handleChangeNombre} />
-                    </div>
-                    <div>
-                     <label >Descripcion de producto</label>
-                     <textarea value={this.state.formDescripcion} onChange={this.handleChangeDescp}></textarea>
-                    </div>
-                    <div>
-                     <label>Precio</label>
-                     <input type="number" value={this.state.formPrecio} onChange={this.handleChangePreci} />
-                    </div>
-                    <div >
-                     <label>Precio</label>
-                     <input type="text" value={this.state.formShrtDescp} onChange={this.handleChangeShrtDescp} />
-                    </div>
-                  </div>
-                  <div>
-                    <button type="button" data-dismiss="modal">Cancelar</button>
-                    
-                    <Link to="/"><button type="button" onClick={()=>this.sendNetworkProduct()} >Guardar</button></Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </form>
-        </div>)*/}
+    componentDidMount(){
+      fetch('/api/products/categories')
+      .then(response => {
+          return response.json();
+      })
+      .then(categories => {
+          this.setState({ categories });
+      });
+  }
+  
+  renderCategories(){
+    return this.state.categories.map((cat, id) => {
+      return(
+        <option 
+          key={cat.id}
+          value={cat.id} onChange={this.handleChangeCategory}
+        >
+          {cat.cat_name}
+        </option>
+      )
+    });
+  }
+
+    render() {     
+      console.log('cat_id: ' + this.state.cat_id);
         return(
           <div>
             <Header />
@@ -132,16 +127,16 @@ class CreateProduct extends Component{
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridState">
-                <Form.Label>State</Form.Label>
-                  <Form.Control as="select" defaultValue="Choose...">
-                    <option>Choose...</option>
-                    <option>...</option>
+                <Form.Label>Selecciona una categoria</Form.Label>
+                  <Form.Control as="select" defaultValue="Seleccionar..." /*value={this.state.formCategory} onChange={this.handleChangeCategory}*/>
+                    <option>Seleccionar...</option>
+                    {this.renderCategories()}
                 </Form.Control>
               </Form.Group>
 
                 <Form.Group as={Row}>
                   <Col sm={{ span: 10, offset: 2 }}>
-                    <Link>
+                    <Link to="/">
                       <Button type="submit" onClick={()=>this.sendNetworkProduct()}>Confirmar</Button>
                     </Link>
                     {/*<Button type="submit">Confirmar</Button>

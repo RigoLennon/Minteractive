@@ -18,6 +18,8 @@ use Illuminate\Http\Request;
 });*/
 
 //
+Route::get('products/categories', 'ProductsController@ProductCategories');
+
 
 Route::get('products', 'ProductsController@index');
  
