@@ -20,6 +20,7 @@ class RegisterContainer extends Component {
     },
     redirect: props.redirect,
 };
+
 this.handleSubmit = this.handleSubmit.bind(this);
 this.handleName = this.handleName.bind(this);
 this.handleEmail = this.handleEmail.bind(this);

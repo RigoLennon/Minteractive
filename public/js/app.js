@@ -55564,8 +55564,8 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
       formData.append('nombre', this.state.formNombre);
       formData.append('descripcion', this.state.formDescripcion);
       formData.append('precio', this.state.formPrecio);
-      formData.append('short_descrip', this.state.formShrtDescp); //formData.append('cat_id',this.state.formCategory)
-
+      formData.append('short_descrip', this.state.formShrtDescp);
+      formData.append('cat_id', this.state.formCategory);
       axios__WEBPACK_IMPORTED_MODULE_4___default.a.post('/api/products', formData).then(function (response) {
         if (response.data.success == true) {
           alert(response.data.message);
@@ -55588,24 +55588,10 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
-    key: "renderCategories",
-    value: function renderCategories() {
-      var _this3 = this;
-
-      return this.state.categories.map(function (cat, id) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          key: cat.id,
-          value: cat.id,
-          onChange: _this3.handleChangeCategory
-        }, cat.cat_name);
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
-      console.log('cat_id: ' + this.state.cat_id);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header_Header__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
         as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"],
         controlId: "formHorizontalName"
@@ -55663,10 +55649,15 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
         controlId: "formGridState"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Selecciona una categoria"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Control, {
         as: "select",
-        defaultValue: "Seleccionar..."
-        /*value={this.state.formCategory} onChange={this.handleChangeCategory}*/
-
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Seleccionar..."), this.renderCategories())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
+        defaultValue: "Seleccionar...",
+        value: this.state.formCategory,
+        onChange: this.handleChangeCategory
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Seleccionar..."), this.state.categories.map(function (cat, index) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: index,
+          value: cat.id
+        }, cat.cat_name);
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
         as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"]
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
         sm: {
@@ -55678,7 +55669,7 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         type: "submit",
         onClick: function onClick() {
-          return _this4.sendNetworkProduct();
+          return _this3.sendNetworkProduct();
         }
       }, "Confirmar"))))));
     }

@@ -50,7 +50,7 @@ class CreateProduct extends Component{
       formData.append('descripcion',this.state.formDescripcion)
       formData.append('precio',this.state.formPrecio)
       formData.append('short_descrip',this.state.formShrtDescp)
-      //formData.append('cat_id',this.state.formCategory)
+      formData.append('cat_id',this.state.formCategory)
   
       axios.post('/api/products',formData).then(response=>{
         if (response.data.success==true) {
@@ -70,22 +70,8 @@ class CreateProduct extends Component{
           this.setState({ categories });
       });
   }
-  
-  renderCategories(){
-    return this.state.categories.map((cat, id) => {
-      return(
-        <option 
-          key={cat.id}
-          value={cat.id} onChange={this.handleChangeCategory}
-        >
-          {cat.cat_name}
-        </option>
-      )
-    });
-  }
 
-    render() {     
-      console.log('cat_id: ' + this.state.cat_id);
+    render() {
         return(
           <div>
             <Header />
@@ -128,9 +114,11 @@ class CreateProduct extends Component{
 
               <Form.Group as={Col} controlId="formGridState">
                 <Form.Label>Selecciona una categoria</Form.Label>
-                  <Form.Control as="select" defaultValue="Seleccionar..." /*value={this.state.formCategory} onChange={this.handleChangeCategory}*/>
+                  <Form.Control as="select" defaultValue="Seleccionar..." value={this.state.formCategory} onChange={this.handleChangeCategory}>
                     <option>Seleccionar...</option>
-                    {this.renderCategories()}
+                    {this.state.categories.map((cat, index)=>{
+                      return <option key={index} value={cat.id}>{cat.cat_name}</option>
+                    })}
                 </Form.Control>
               </Form.Group>
 
@@ -139,9 +127,6 @@ class CreateProduct extends Component{
                     <Link to="/">
                       <Button type="submit" onClick={()=>this.sendNetworkProduct()}>Confirmar</Button>
                     </Link>
-                    {/*<Button type="submit">Confirmar</Button>
-                    <Link to="/"><button type="button" onClick={()=>this.sendNetworkProduct()} >Guardar</button></Link>
-                    */}
                   </Col>
                 </Form.Group>
             </Form>
