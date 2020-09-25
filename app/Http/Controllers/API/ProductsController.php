@@ -1,15 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\API\BaseController as BaseController;
 use App\Product;
 use Illuminate\Support\Facades\DB;
+use Validator;
 
 class ProductsController extends Controller
 {
     public function index(){
-        return Product::orderBy('id', 'DESC')->get();
+        //return Product::orderBy('id', 'DESC')->get();
+        $products = Product::all();
+
+        return $this->sendResponse($products->toArray(), 'Todos los productos')
     }
 
     public function show(Product $product){
@@ -23,7 +28,7 @@ class ProductsController extends Controller
     }
 
     public function store(Request $request){
-        Product::insert([
+        /*Product::insert([
             'name' => $request->input('nombre'),
             'description' => $request->input('descripcion'),
             'price' => $request->input('precio'),
@@ -33,7 +38,8 @@ class ProductsController extends Controller
         $response['message'] = 'Guardado con exito';
         $response['success'] = true;
 
-        return $response;
+        return $response;*/
+        
     }
 
     public function edit($id){
