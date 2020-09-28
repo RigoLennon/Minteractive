@@ -56384,8 +56384,8 @@ var Home = /*#__PURE__*/function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\rigob\Desktop\Minteractive\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\rigob\Desktop\Minteractive\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/rigo/Desktop/minteractive/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/rigo/Desktop/minteractive/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
