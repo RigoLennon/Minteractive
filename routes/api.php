@@ -17,9 +17,16 @@ use Illuminate\Http\Request;
     return $request->user();
 });*/
 
+/*Route::middleware('auth:api')->group( function () {
+    Route::resource('products', 'API\ProductsController');
+});*/
+
+Route::resource('products', 'API\ProductsController');
+
+
 //
 
-Route::get('products', 'ProductsController@index');
+/*Route::get('products', 'ProductsController@index');
  
 Route::get('products/{product}', 'ProductsController@show');
 
@@ -28,6 +35,7 @@ Route::post('products/','ProductsController@store');
 Route::put('products/{product}','ProductsController@update');
  
 Route::delete('products/{product}', 'ProductsController@delete');
+*/
 
 //
 

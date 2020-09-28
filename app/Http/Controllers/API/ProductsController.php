@@ -8,13 +8,13 @@ use App\Product;
 use Illuminate\Support\Facades\DB;
 use Validator;
 
-class ProductsController extends Controller
+class ProductsController extends BaseController
 {
     public function index(){
         //return Product::orderBy('id', 'DESC')->get();
         $products = Product::all();
 
-        return $this->sendResponse($products->toArray(), 'Todos los productos')
+        return $this->sendResponse($products->toArray(), 'Todos los productos');
     }
 
     public function show(Product $product){
@@ -40,6 +40,22 @@ class ProductsController extends Controller
 
         return $response;*/
         
+        $input = $request->all();
+
+        $validator = Validator::make($input,[
+            'name' => 'required|min:3|max:25',
+            'description' => 'required|min:10|max:100',
+            'short_descrip' => 'required|min:10|max: 50',
+            'price' => 'required|numeric|between:1,9999',
+        ]);
+
+        if ($validator->fails()){
+            return $this->sendError('Errror en el registro', $validator->errors());
+        }
+
+        $product = Product::create($input);
+
+        return $this->sendResponse($product->toArray(), 'Producto guardado');
     }
 
     public function edit($id){
