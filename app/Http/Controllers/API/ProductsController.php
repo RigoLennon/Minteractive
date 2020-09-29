@@ -11,8 +11,7 @@ use Validator;
 class ProductsController extends BaseController
 {
     public function index(){
-        //return Product::orderBy('id', 'DESC')->get();
-        $products = Product::all();
+        $products = Product::orderBy('id', 'DESC')->get();
 
         return $this->sendResponse($products->toArray(), 'Todos los productos');
     }
@@ -44,9 +43,10 @@ class ProductsController extends BaseController
 
         $validator = Validator::make($input,[
             'name' => 'required|min:3|max:25',
-            'description' => 'required|min:10|max:100',
+            'description' => 'required|min:50|max:100',
             'short_descrip' => 'required|min:10|max: 50',
             'price' => 'required|numeric|between:1,9999',
+            'cat_id' => 'required'
         ]);
 
         if ($validator->fails()){

@@ -55057,8 +55057,8 @@ var Home = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(Home, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
+    key: "componentDidMount",
+    value: function componentDidMount() {
       var state = localStorage["appState"];
 
       if (state) {
@@ -55801,8 +55801,8 @@ var ShowProducts = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(ShowProducts, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
+    key: "componentDidMount",
+    value: function componentDidMount() {
       var state = localStorage["appState"];
 
       if (state) {
@@ -55813,26 +55813,37 @@ var ShowProducts = /*#__PURE__*/function (_Component) {
         });
       }
     }
+    /*componentDidMount(){
+        fetch('/api/products')
+        .then(response => response.json()
+        .then(data => {
+            this.setState({ products: data });
+        }))
+        .catch((err) => { throw err; });
+    }*/
+
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
 
-      fetch('/api/products').then(function (response) {
-        return response.json();
-      }).then(function (products) {
-        _this2.setState({
-          products: products
+      fetch('/api/products').then(function (res) {
+        return res.json();
+      }).then(function (json) {
+        return json.data;
+      }).then(function (data) {
+        return _this2.setState({
+          'products': data
         });
       });
     }
   }, {
     key: "renderProducts",
     value: function renderProducts() {
-      return this.state.products.map(function (product, id) {
+      return this.state.products.map(function (product, index) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Container"], {
           fluid: "sm",
-          key: id
+          key: index
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], {
           className: "justify-content-sm-center"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Card"], {

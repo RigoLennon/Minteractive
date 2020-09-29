@@ -13,7 +13,7 @@ class Home extends Component{
         }
     }
 
-    componentWillMount(){
+    componentDidMount(){
         let state = localStorage["appState"];
 
         if(state){

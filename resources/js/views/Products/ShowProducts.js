@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import {BrowserRouter, Link, Route, Switch, useLocation} from 'react-router-dom';
 
 import {Card, Button, Container, Row} from 'react-bootstrap';
@@ -12,10 +12,10 @@ class ShowProducts extends Component{
         this.state={
             isLoggedIn: false,
             user:{},
-            products: [],
+            products:[]
         }
     }
-    componentWillMount(){
+    componentDidMount(){
         let state = localStorage["appState"];
 
         if(state){
@@ -24,20 +24,26 @@ class ShowProducts extends Component{
         }
     }
 
-    componentDidMount(){
+    /*componentDidMount(){
         fetch('/api/products')
-        .then(response => {
-            return response.json();
-        })
-        .then(products => {
-            this.setState({ products });
-        });
+        .then(response => response.json()
+        .then(data => {
+            this.setState({ products: data });
+        }))
+        .catch((err) => { throw err; });
+    }*/
+
+    componentDidMount() {
+        fetch('/api/products')
+        .then(res => res.json())
+        .then(json => json.data)
+        .then(data => this.setState({ 'products': data }))
     }
 
     renderProducts(){
-        return this.state.products.map((product, id) => {
+        return this.state.products.map((product, index) => {
             return(
-                <Container fluid="sm" key={id}>
+                <Container fluid="sm" key={index}>
                 <br></br>
                 <Row className="justify-content-sm-center">
                     <Card style={{ width: '18rem' }}>
@@ -62,6 +68,7 @@ class ShowProducts extends Component{
                 <div>
                     <h1>Productos</h1>
                     {this.renderProducts()}
+                    {/*{this.renderTest()}*/}
                 </div>
             );
     }
