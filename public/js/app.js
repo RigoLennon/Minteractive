@@ -55512,7 +55512,7 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
       price: 0,
       short_descrip: '',
       cat_id: '',
-      categories: []
+      products_cat: []
     };
     _this.handleChangeNombre = _this.handleChangeNombre.bind(_assertThisInitialized(_this));
     _this.handleChangeDescp = _this.handleChangeDescp.bind(_assertThisInitialized(_this));
@@ -55595,7 +55595,7 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
         return json.data;
       }).then(function (data) {
         return _this2.setState({
-          'categories': data
+          'products_cat': data
         });
       });
     }
@@ -55664,12 +55664,12 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
         defaultValue: "Seleccionar...",
         value: this.state.formCategory,
         onChange: this.handleChangeCategory
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Seleccionar..."), this.state.categories.map(function (cat, index) {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Seleccionar..."), this.state.products_cat.map(function (cat, index) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
           key: index,
           value: cat.id
         }, cat.cat_name);
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
+      }), this.renderCats())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
         as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"]
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
         sm: {

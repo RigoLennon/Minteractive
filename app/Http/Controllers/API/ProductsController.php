@@ -21,7 +21,8 @@ class ProductsController extends BaseController
         ->select('id', 'cat_name')
         ->get();            
         
-        return $products_cat;
+        //return $products_cat;
+        return $this->sendResponse($products_cat->toArray(), 'Todos las categorias');
         
     }
 

@@ -68,7 +68,6 @@ class ShowProducts extends Component{
                 <div>
                     <h1>Productos</h1>
                     {this.renderProducts()}
-                    {/*{this.renderTest()}*/}
                 </div>
             );
     }

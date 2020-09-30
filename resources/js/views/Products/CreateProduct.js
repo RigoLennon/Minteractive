@@ -14,7 +14,7 @@ class CreateProduct extends Component{
           price: 0,
           short_descrip: '',
           cat_id: '',
-          categories: []
+          products_cat:[]
         }
         
         this.handleChangeNombre = this.handleChangeNombre.bind(this);
@@ -75,8 +75,8 @@ class CreateProduct extends Component{
     fetch('/api/products/categories')
     .then(res => res.json())
     .then(json => json.data)
-    .then(data => this.setState({ 'categories': data }))
-}
+    .then(data => this.setState({ 'products_cat': data }))
+  }
 
     render() {
         return(
@@ -123,9 +123,10 @@ class CreateProduct extends Component{
                 <Form.Label>Selecciona una categoria</Form.Label>
                   <Form.Control as="select" defaultValue="Seleccionar..." value={this.state.formCategory} onChange={this.handleChangeCategory}>
                     <option>Seleccionar...</option>
-                    {this.state.categories.map((cat, index)=>{
+                    {this.state.products_cat.map((cat, index)=>{
                       return <option key={index} value={cat.id}>{cat.cat_name}</option>
                     })}
+                    {this.renderCats()}
                 </Form.Control>
               </Form.Group>
 
