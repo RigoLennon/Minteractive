@@ -55509,8 +55509,8 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
     _this.state = {
       name: '',
       description: '',
-      price: 0,
       short_descrip: '',
+      price: '',
       cat_id: '',
       products_cat: []
     };
@@ -55574,6 +55574,7 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
         console.log('error', error);
         alert("Error " + error);
       });
+      console.log(formData);
     }
     /*componentDidMount(){
       fetch('/api/products/categories')

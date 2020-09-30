@@ -11,8 +11,8 @@ class CreateProduct extends Component{
         this.state = {
           name: '',
           description: '',
-          price: 0,
           short_descrip: '',
+          price: '',
           cat_id: '',
           products_cat:[]
         }
@@ -60,6 +60,8 @@ class CreateProduct extends Component{
         console.log('error', error);
         alert("Error " + error)
       })
+
+      console.log(formData);
     }
 
     /*componentDidMount(){
