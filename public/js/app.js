@@ -55561,16 +55561,17 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
     key: "sendNetworkProduct",
     value: function sendNetworkProduct() {
       var formData = new FormData();
-      formData.append('nombre', this.state.formNombre);
-      formData.append('descripcion', this.state.formDescripcion);
-      formData.append('precio', this.state.formPrecio);
+      formData.append('name', this.state.formNombre);
+      formData.append('description', this.state.formDescripcion);
+      formData.append('price', this.state.formPrecio);
       formData.append('short_descrip', this.state.formShrtDescp);
       formData.append('cat_id', this.state.formCategory);
-      axios__WEBPACK_IMPORTED_MODULE_4___default.a.post('/api/products', formData).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_4___default.a.post('/api/products/', formData).then(function (response) {
         if (response.data.success == true) {
           alert(response.data.message);
         }
       })["catch"](function (error) {
+        console.log('error', error);
         alert("Error " + error);
       });
     }
@@ -55669,7 +55670,7 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
           key: index,
           value: cat.id
         }, cat.cat_name);
-      }), this.renderCats())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
         as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"]
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
         sm: {

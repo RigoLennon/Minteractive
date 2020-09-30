@@ -46,18 +46,19 @@ class CreateProduct extends Component{
 
     sendNetworkProduct(){
       const formData = new FormData()
-      formData.append('nombre',this.state.formNombre)
-      formData.append('descripcion',this.state.formDescripcion)
-      formData.append('precio',this.state.formPrecio)
+      formData.append('name',this.state.formNombre)
+      formData.append('description',this.state.formDescripcion)
+      formData.append('price',this.state.formPrecio)
       formData.append('short_descrip',this.state.formShrtDescp)
       formData.append('cat_id',this.state.formCategory)
   
-      axios.post('/api/products',formData).then(response=>{
+      axios.post('/api/products/',formData).then(response=>{
         if (response.data.success==true) {
           alert(response.data.message)
         }
       }).catch(error=>{
-        alert("Error "+error)
+        console.log('error', error);
+        alert("Error " + error)
       })
     }
 
@@ -126,7 +127,6 @@ class CreateProduct extends Component{
                     {this.state.products_cat.map((cat, index)=>{
                       return <option key={index} value={cat.id}>{cat.cat_name}</option>
                     })}
-                    {this.renderCats()}
                 </Form.Control>
               </Form.Group>
 

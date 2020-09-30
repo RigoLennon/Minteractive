@@ -22,7 +22,7 @@ class ProductsController extends BaseController
         ->get();            
         
         //return $products_cat;
-        return $this->sendResponse($products_cat->toArray(), 'Todos las categorias');
+        return $this->sendResponse($products_cat->toArray(), 'Todas las categorias');
         
     }
 
