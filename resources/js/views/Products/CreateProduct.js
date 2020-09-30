@@ -59,6 +59,8 @@ class CreateProduct extends Component{
       }).catch(error=>{
         alert("Error "+error)
       })
+
+      console.log(this.state.formNombre);
     }
 
     componentDidMount(){

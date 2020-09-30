@@ -55573,6 +55573,7 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
       })["catch"](function (error) {
         alert("Error " + error);
       });
+      console.log(this.state.formNombre);
     }
   }, {
     key: "componentDidMount",
