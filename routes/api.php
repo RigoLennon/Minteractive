@@ -22,7 +22,7 @@ use Illuminate\Http\Request;
 });*/
 
 Route::resource('products', 'API\ProductsController');
-
+Route::get('products/categories', 'ProductsController@ProductCategories');
 
 //
 

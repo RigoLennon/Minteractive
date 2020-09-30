@@ -16,6 +16,15 @@ class ProductsController extends BaseController
         return $this->sendResponse($products->toArray(), 'Todos los productos');
     }
 
+    public function ProductCategories(){
+        $products_cat = DB::table('product_categories')
+        ->select('id', 'cat_name')
+        ->get();            
+        
+        return $products_cat;
+        
+    }
+
     public function show(Product $product){
         $product_id = $product->id;
         $products = DB::table('products')
