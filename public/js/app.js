@@ -55557,24 +55557,46 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
         formCategory: event.target.value
       });
     }
-  }, {
-    key: "sendNetworkProduct",
-    value: function sendNetworkProduct() {
-      var formData = new FormData();
-      formData.append('name', this.state.formNombre);
-      formData.append('description', this.state.formDescripcion);
-      formData.append('price', this.state.formPrecio);
-      formData.append('short_descrip', this.state.formShrtDescp);
-      formData.append('cat_id', this.state.formCategory);
-      axios__WEBPACK_IMPORTED_MODULE_4___default.a.post('/api/products/', formData).then(function (response) {
-        if (response.data.success == true) {
-          alert(response.data.message);
+    /*sendNetworkProduct(){
+      const formData = new FormData()
+      formData.append('name',this.state.formNombre)
+      formData.append('description',this.state.formDescripcion)
+      formData.append('price',this.state.formPrecio)
+      formData.append('short_descrip',this.state.formShrtDescp)
+      formData.append('cat_id',this.state.formCategory)
+         axios.post('/api/products/',formData).then(response=>{
+        if (response.data.success==true) {
+          alert(response.data.message)
         }
-      })["catch"](function (error) {
+      }).catch(error=>{
         console.log('error', error);
-        alert("Error " + error);
+        alert("Error " + error)
+      })
+       console.log(this.state.formNombre);
+    }*/
+
+  }, {
+    key: "sendNetworkProductTest",
+    value: function sendNetworkProductTest(event) {
+      event.preventDefault();
+      axios__WEBPACK_IMPORTED_MODULE_4___default.a.post('http://127.0.0.1:8000/api/products/', {
+        name: this.handleChangeNombre,
+        description: this.handleChangeDescp,
+        short_descrip: this.handleChangeShrtDescp,
+        price: this.handleChangePreci,
+        cat_id: this.handleChangeCategory
+      }).then(function (response) {
+        console.log(response.data);
+      })["catch"](function (error) {
+        console.log(error);
       });
-      console.log(formData);
+      this.setState({
+        name: '',
+        description: '',
+        short_descrip: '',
+        price: '',
+        cat_id: ''
+      });
     }
     /*componentDidMount(){
       fetch('/api/products/categories')
@@ -55683,7 +55705,7 @@ var CreateProduct = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         type: "submit",
         onClick: function onClick() {
-          return _this3.sendNetworkProduct();
+          return _this3.sendNetworkProductTest();
         }
       }, "Confirmar"))))));
     }

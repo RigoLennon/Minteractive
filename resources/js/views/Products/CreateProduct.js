@@ -44,7 +44,7 @@ class CreateProduct extends Component{
       this.setState({formCategory: event.target.value})
     }
 
-    sendNetworkProduct(){
+    /*sendNetworkProduct(){
       const formData = new FormData()
       formData.append('name',this.state.formNombre)
       formData.append('description',this.state.formDescripcion)
@@ -61,7 +61,33 @@ class CreateProduct extends Component{
         alert("Error " + error)
       })
 
-      console.log(formData);
+      console.log(this.state.formNombre);
+    }*/
+
+    sendNetworkProductTest(event){
+      event.preventDefault();
+
+      axios.post('http://127.0.0.1:8000/api/products/',{
+        name: this.handleChangeNombre,
+        description: this.handleChangeDescp,
+        short_descrip: this.handleChangeShrtDescp,
+        price: this.handleChangePreci,
+        cat_id: this.handleChangeCategory
+      })
+      .then(function(response){
+        console.log(response.data);
+      })
+      .catch(function (error){
+        console.log(error)
+      });
+
+      this.setState({
+        name: '',
+        description: '',
+        short_descrip: '',
+        price: '',
+        cat_id: '',
+      })
     }
 
     /*componentDidMount(){
@@ -135,7 +161,7 @@ class CreateProduct extends Component{
                 <Form.Group as={Row}>
                   <Col sm={{ span: 10, offset: 2 }}>
                     <Link to="/">
-                      <Button type="submit" onClick={()=>this.sendNetworkProduct()}>Confirmar</Button>
+                      <Button type="submit" onClick={()=>this.sendNetworkProductTest()}>Confirmar</Button>
                     </Link>
                   </Col>
                 </Form.Group>
